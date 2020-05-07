@@ -53,9 +53,14 @@ public class loginFunction {
         Assert.assertFalse(isAlertPresent());
         System.out.println("driver.getWindowHandles().size() = " + driver.getWindowHandles().size());
         int size = driver.findElements(By.tagName("iframe")).size();
-        driver.switchTo().frame(1);
+        WebDriver element = driver.switchTo().frame("flow_close_btn_iframe");
+        System.out.println(element.getPageSource());
         System.out.println("size = " + size);
-//        driver.switchTo().frame(driver.findElement(By.xpath("//div[starts-with(@id, 'Player')]")));
+        driver.findElement(By.id("closeBtn")).click();
+        size = driver.findElements(By.tagName("iframe")).size();
+        System.out.println("size = " + size);
+//        driver.findElement(By.xpath("//div[starts-with(@id, 'Player')]")).click();
+        Thread.sleep(5000);
     }
 
     @Test
