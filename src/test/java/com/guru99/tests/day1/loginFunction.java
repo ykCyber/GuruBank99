@@ -1,7 +1,7 @@
-package com.guru99.tests.loginTestCase01;
+package com.guru99.tests.day1;
 
 import com.github.javafaker.Faker;
-import com.guru99.utilities.WebDriverFactory;
+import com.guru99.utilities.*;
 import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -10,16 +10,16 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.guru99.utilities.Base.*;
+
 
 public class loginFunction {
-    public static final String URL = "http://www.demo.guru99.com/V4/";
-    public static final String USER_ID = "mngr259679";
-    public static final String PASSWORD = "jymUhyr";
+
 
 
     WebDriver driver = WebDriverFactory.getManuelDriver("chrome");
 
-    public boolean isAlertPresent() {
+    public static boolean isAlertPresent(WebDriver driver) {
         try {
             driver.switchTo().alert();
             return true;
@@ -45,12 +45,12 @@ public class loginFunction {
     public void login() throws InterruptedException {
         driver.get(URL);
         WebElement userNameBox = driver.findElement(By.xpath(("(//td//input)[1]")));
-        userNameBox.sendKeys(USER_ID, Keys.TAB, PASSWORD, Keys.ENTER);
+        userNameBox.sendKeys(VALID_USER_ID, Keys.TAB, VALID_PASSWORD, Keys.ENTER);
         WebElement welcomeMarquee = driver.findElement(By.xpath("//marquee"));
         String actualId = driver.findElement(By.xpath("(//td)[3]")).getText();
-        Assert.assertTrue(actualId.contains(USER_ID));
+        Assert.assertTrue(actualId.contains(VALID_USER_ID));
         Assert.assertTrue(welcomeMarquee.isDisplayed());
-        Assert.assertFalse(isAlertPresent());
+        Assert.assertFalse(isAlertPresent(driver));
         System.out.println("driver.getWindowHandles().size() = " + driver.getWindowHandles().size());
         int size = driver.findElements(By.tagName("iframe")).size();
         WebDriver element = driver.switchTo().frame("flow_close_btn_iframe");
@@ -71,7 +71,7 @@ public class loginFunction {
         WebElement userNameBox = driver.findElement(By.xpath(("(//td//input)[1]")));
         userNameBox.sendKeys(jf.name().username(), Keys.TAB, jf.internet().password(), Keys.ENTER);
         // Capturing alert message.
-        Assert.assertTrue(isAlertPresent());
+        Assert.assertTrue(isAlertPresent(driver));
         Alert alert = driver.switchTo().alert();
         System.out.println(alert.getText());
 
@@ -81,7 +81,7 @@ public class loginFunction {
     public void test(){
         driver.get(URL);
         WebElement userNameBox = driver.findElement(By.xpath(("(//td//input)[1]")));
-        userNameBox.sendKeys(USER_ID, Keys.TAB, Keys.ENTER);
+        userNameBox.sendKeys(VALID_USER_ID, Keys.TAB, Keys.ENTER);
 
     }
 }
