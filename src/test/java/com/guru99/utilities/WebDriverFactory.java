@@ -22,7 +22,9 @@ public class WebDriverFactory {
                 System.setProperty("webdriver.chrome.driver", filePath);
 
                 ChromeOptions options = new ChromeOptions();
-                options.addExtensions(new File("I:\\extentions\\chropath_6_1_4_0.crx"));
+                 relativePath = "drivers\\chropath_6_1_4_0.crx";
+                 filePath = (projectPath + "\\" + relativePath);
+                options.addExtensions(new File("filePath\\"));
 
                 DesiredCapabilities capabilities = new DesiredCapabilities();
                 capabilities.setCapability(ChromeOptions.CAPABILITY, options);
@@ -49,6 +51,8 @@ public class WebDriverFactory {
     }
 
     public static WebDriver getDriver(String browserType) {
+        String projectPath = System.getProperty("user.dir");
+
         WebDriver driver = null;
         switch (browserType.toLowerCase()) {
             case "chrome":
@@ -58,7 +62,9 @@ public class WebDriverFactory {
                 // show path to addExtentions
                 //import related classes
                 //delete the last line driver = new ChromeDriver(); otherwise browser will open as default without extensions
-                options.addExtensions(new File("I:\\extentions\\chropath_6_1_4_0.crx"));
+
+                String relativePath = "drivers\\chropath_6_1_4_0.crx";
+                String filePath = (projectPath + "\\" + relativePath);
                 DesiredCapabilities capabilities = new DesiredCapabilities();
                 capabilities.setCapability(ChromeOptions.CAPABILITY, options);
                 driver = new ChromeDriver(capabilities);
